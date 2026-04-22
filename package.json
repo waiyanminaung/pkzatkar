@@ -10,11 +10,14 @@
   },
   "dependencies": {
     "@geckoui/geckoui": "^1.3.3",
+    "@hono/zod-validator": "^0.7.6",
     "@spoosh/core": "^0.18.3",
+    "@spoosh/hono": "^0.6.2",
     "@spoosh/plugin-cache": "^0.7.0",
     "@spoosh/plugin-deduplication": "^0.4.0",
     "@spoosh/plugin-invalidation": "^0.11.0",
     "@spoosh/react": "^0.15.4",
+    "hono": "^4.12.14",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"
