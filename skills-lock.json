@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "skills": {
+    "spoosh-react": {
+      "source": "spooshdev/skills",
+      "sourceType": "github",
+      "computedHash": "90e0e2da605033c51270bcac9ed0fa9ddade32540e94523400002761d8d4af52"
+    }
+  }
+}
