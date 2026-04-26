@@ -3,6 +3,7 @@ services:
     build:
       context: .
       target: production
+    container_name: pkmovie-app
     ports:
       - "3000:3000"
     env_file:
@@ -15,6 +16,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=pkmovie
+    container_name: pkmovie-db
     ports:
       - "5433:5432"
     volumes:

@@ -1,10 +1,14 @@
 import { Hono } from "hono";
-import { authRoutes, movieRoutes } from "./routes";
+import { movieRoutes } from "./routes";
+import { auth } from "@/lib/auth";
 
-const app = new Hono().basePath("/api");
+const router = new Hono().basePath("/api");
 
-app.route("/auth", authRoutes);
-app.route("/movies", movieRoutes);
+router.route("/movies", movieRoutes);
 
-export type AppType = typeof app;
-export default app;
+router.on(["POST", "GET"], "/auth/*", (c) => {
+  return auth.handler(c.req.raw);
+});
+
+export type AppType = typeof router;
+export default router;

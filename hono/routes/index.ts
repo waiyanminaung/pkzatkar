@@ -1,2 +1,1 @@
-export { authRoutes } from "./auth";
-export { movieRoutes } from "./movies";
+export { movieRoutes } from "./movies.routes";
