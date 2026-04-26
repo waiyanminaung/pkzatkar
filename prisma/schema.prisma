@@ -27,6 +27,8 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  role String @default("ADMIN")
+
   @@unique([email])
   @@map("user")
 }

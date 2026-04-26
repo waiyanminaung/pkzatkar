@@ -1,0 +1,10 @@
+export const ADMIN_REGISTER_REDIRECT_PATH = "/admin/login";
+
+export const ADMIN_MIN_PASSWORD_LENGTH = 8;
+
+export const DEFAULT_ADMIN_REGISTER_VALUES = {
+  name: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};

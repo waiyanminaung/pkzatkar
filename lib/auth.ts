@@ -21,10 +21,10 @@ export const auth = betterAuth({
   },
   user: {
     additionalFields: {
-      roles: {
-        type: [Role.ADMIN],
+      role: {
+        type: "string",
         required: true,
-        defaultValue: [Role.ADMIN],
+        defaultValue: Role.ADMIN,
       },
     },
   },
