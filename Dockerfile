@@ -12,7 +12,7 @@ RUN npm install --silent
 COPY . .
 RUN npm run build
 
-FROM base As prod-deps
+FROM base AS prod-deps
 RUN npm install --silent --omit=dev
 
 FROM node:lts-alpine3.22 AS production
