@@ -30,6 +30,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Create env file for Docker
+        run: |
+          echo "${{ secrets.DOTENV_FILE }}" > .env.docker
+
       - name: Copy docker-compose.yml to server
         uses: appleboy/scp-action@v1
         with:
