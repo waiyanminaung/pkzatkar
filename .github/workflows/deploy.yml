@@ -22,33 +22,30 @@ jobs:
         run: |
           docker compose build 
           docker compose push
-  deploy:
-      needs: build-and-push
-      runs-on: ubuntu-latest
-      steps:
-        - name: 1. Check Inputs (Debug)
-          run: |
-            echo "Checking if secrets are available..."
-            if [ -z "${{ secrets.SERVER_HOST }}" ]; then echo "❌ HOST is missing"; else echo "✅ HOST is present"; fi
 
-        - name: 2. Deploy to server
-          uses: appleboy/ssh-action@v1.2.5
-          with:
-            host: ${{ secrets.SERVER_HOST }}
-            username: ${{ secrets.SERVER_USER }}
-            key: ${{ secrets.SERVER_SSH_KEY }}
-            port: 22 # Default port ကိုပါ ထည့်ရေးကြည့်ပါ
-            debug: true # <--- ဒီကောင်က အသေးစိတ် log ထုတ်ပေးမှာပါ
-            script_stop: true # script ထဲမှာ error တက်ရင် ချက်ချင်းရပ်ဖို့
-            script: |
-              echo "--- Start of Remote Script ---"
-              sudo mkdir -p /pkmovie
-              echo "--- Created /pkmovie directory (if it didn't exist) ---"
-              sudo chown $USER:$USER /pkmovie
-              echo "--- Changed ownership of /pkmovie to $USER ---"
-              cd /pkmovie
-              echo "--- Changed directory to /pkmovie ---"
-              docker compose pull
-              echo "--- Pulled latest images from Docker Hub ---"
-              docker compose up -d --remove-orphans
-              echo "--- Started containers with docker compose ---"
+  deploy:
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy docker-compose.yml to server
+        uses: appleboy/scp-action@v0.1.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          source: "docker-compose.yml"
+          target: "~/pkmovie"
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.2.5
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          script: |
+            cd ~/pkmovie
+            docker compose pull
+            docker compose up -d --remove-orphans
+
+   
+
