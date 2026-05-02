@@ -3,6 +3,7 @@ services:
     build:
       context: .
       target: production
+    image: waiyandev/pkmovie-app:latest
     container_name: pkmovie-app
     ports:
       - "3000:3000"
