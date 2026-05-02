@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Step 1: Local Setup
 
-## Getting Started
+- စက်ထဲမှာ Node.js ရှိပါစေ။
+- `.env` ကို ပြင်ပြီး `npm install` -> `npx prisma generate` -> `npm run dev` နဲ့ အရင်စမ်းကြည့်ပါ။
+- Local မှာ App တက်လာပြီဆိုမှ...
 
-First, run the development server:
+# Step 2: Containerization
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- ပြီးခဲ့တဲ့ Local က အဆင့်တွေကို Dockerfile ထဲ ပြောင်းထည့်ပါ။
+- `docker-compose` နဲ့ App ရော DB ရော တစ်ခါတည်း တက်လာအောင် လုပ်ပါ။
+
+---
+
+## 1. Project Stack
+
+- Recommended Image: `node:18-alpine`
+- Website: Next.js (Node.js Runtime)
+- Recommended Image: `postgres:15-alpine`
+- ORM: Prisma
+- Database: PostgreSQL
+
+### Research First
+
+- ORM ဆိုတာဘာလဲ? (Prisma က Database နဲ့ App ကြားမှာ ဘာလုပ်ပေးတာလဲ?)
+- `npx prisma generate` မလုပ်ရင် ဘာဖြစ်မလဲ? (Build stage မှာ ဒါကို ဘာလို့ ထည့်ရတာလဲ?)
+- `migrate deploy` နဲ့ `db push` ဘာကွာလဲ? (Production မှာ ဘယ်ဟာက ပိုစိတ်ချရသလဲ?)
+
+## 2. လိုအပ်သော Environment Variables (Configuration)
+
+Deployment လုပ်တဲ့နေရာမှာ (ဥပမာ- Docker သို့မဟုတ် Cloud Platform) အောက်ပါ environment variables တွေကို configuration ထဲ ထည့်ပေးပါ။
+
+```env
+DATABASE_URL=postgresql://[USER]:[PASSWORD]@[HOST]:[PORT]/[DB_NAME]
+BETTER_AUTH_SECRET=Dg2ZAqI00A6uX9vK9fPeWcUjvfk353AU
+BETTER_AUTH_URL=[YOUR_DOMAIN_OR_IP]
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 3. Application Build & Run Steps (အဆင့်ဆင့်)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Package Dependency Install: `npm install`
+2. Prisma Generate: `npx prisma generate` (ဒါက Database နဲ့ ချိတ်ဆက်ဖို့ လိုအပ်တဲ့ Type တွေကို ဆောက်ပေးတာပါ)
+3. Build: `npm run build`
+4. Create/Migrate database: `npx prisma migrate deploy` (ဒါက Database ထဲမှာ Table structure တွေကို အလိုအလျောက် သွားဆောက်ပေးမှာပါ)
+5. Project run: `npm start`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 4. Dockerization Guide (Bonus Challenge)
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Prisma Client ကို builder stage ထဲမှာ generate လုပ်ပါ။
