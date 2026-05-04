@@ -21,12 +21,18 @@ cd <project-name>
 
 .env.example ဖိုင်ကို ကူးယူပြီး .env ဆိုပြီး နာမည်ပြောင်းပါ။
 ပြီးလျှင် လိုအပ်သော Database URL များကို ဖြည့်စွက်ပါ။
-Command: cp .env.example .env
+
+```bash
+cp .env.example .env
+```
 
 ### 3. Install Dependencies
 
 Project အတွက် လိုအပ်တဲ့ library တွေအားလုံးကို ဆွဲချပါမယ်။
-Command: npm install
+
+```bash
+npm install
+```
 
 ### 4. Prisma & Docker Database Setup
 
