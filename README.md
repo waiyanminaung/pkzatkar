@@ -37,13 +37,20 @@ Container အဖြစ် run ပါ။ ဒါဆို database ready ဖြစ
 အခုနက Docker ထဲမှာ ပွင့်သွားတဲ့ Database ဆီကို လှမ်းချိတ်ပြီး Table တွေ ဆောက်ပါမယ်။
 
 .env ထဲမှာ DATABASE_URL=postgresql://[POSTGRES_USER]:[POSTGRES_USER]@[HOST]:[PORT]/[DBNAME]
-Command: npx prisma generate
-Command: npx prisma db push
+
+```bash
+npx prisma generate
+npx prisma db push
+```
 
 ### 5. Run Development Server
 
 Project ကို စတင် Run ပါမယ်။
-Command: npm run dev
+
+```bash
+npm run dev
+```
+
 Browser မှာ http://localhost:3000 ကို ရိုက်ထည့်ပြီး ကြည့်ရှုနိုင်ပါပြီ။
 
 ---
