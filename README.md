@@ -1,48 +1,52 @@
-# Step 1: Local Setup
+# 🚀 Next.js Project (with Prisma & Docker)
 
-- စက်ထဲမှာ Node.js ရှိပါစေ။
-- `.env` ကို ပြင်ပြီး `npm install` -> `npx prisma generate` -> `npm run dev` နဲ့ အရင်စမ်းကြည့်ပါ။
-- Local မှာ App တက်လာပြီဆိုမှ...
+Docker မသုံးခင် ကိုယ့်စက်ထဲမှာ အရင်ဆုံး Run တတ်အောင် အောက်ပါအဆင့်အတိုင်း လုပ်ဆောင်ပါ။
 
-# Step 2: Containerization
+လိုအပ်ချက်များ
+Node.js (v18 or higher): JavaScript code တွေကို run ဖို့ engine ဖြစ်ပါတယ်။
+npm: Package တွေကို စီမံခန့်ခွဲဖို့ ဖြစ်ပါတယ်။
 
-- ပြီးခဲ့တဲ့ Local က အဆင့်တွေကို Dockerfile ထဲ ပြောင်းထည့်ပါ။
-- `docker-compose` နဲ့ App ရော DB ရော တစ်ခါတည်း တက်လာအောင် လုပ်ပါ။
+### အဆင့်ဆင့် လုပ်ဆောင်ရန်
+
+### 1. Clone the Project
+
+git clone <your-repo-url>
+cd <project-name>
+
+### 2. Setup Environment Variables
+
+.env.example ဖိုင်ကို ကူးယူပြီး .env ဆိုပြီး နာမည်ပြောင်းပါ။
+ပြီးလျှင် လိုအပ်သော Database URL များကို ဖြည့်စွက်ပါ။
+Command: cp .env.example .env
+
+### 3. Install Dependencies
+
+Project အတွက် လိုအပ်တဲ့ library တွေအားလုံးကို ဆွဲချပါမယ်။
+Command: npm install
+
+### 4. Prisma & Docker Database Setup
+
+ဒီအဆင့်မှာ Database ကို Docker Container အဖြစ် Run ပါမယ်။
+Docker compose ဆောက်ပါ။​
+postgres:15-alpine ကိုသုံးပါ။
+Container အဖြစ် run ပါ။ ဒါဆို database ready ဖြစ်ပါပြီ။
+အခုနက Docker ထဲမှာ ပွင့်သွားတဲ့ Database ဆီကို လှမ်းချိတ်ပြီး Table တွေ ဆောက်ပါမယ်။
+
+.env ထဲမှာ DATABASE_URL=postgresql://[POSTGRES_USER]:[POSTGRES_USER]@[HOST]:[PORT]/[DBNAME]
+Command: npx prisma generate
+Command: npx prisma db push
+
+### 5. Run Development Server
+
+Project ကို စတင် Run ပါမယ်။
+Command: npm run dev
+Browser မှာ http://localhost:3000 ကို ရိုက်ထည့်ပြီး ကြည့်ရှုနိုင်ပါပြီ။
 
 ---
 
-## 1. Project Stack
+### 🐳 DevOps Challenge (Next Step)
 
-- Recommended Image: `node:18-alpine`
-- Website: Next.js (Node.js Runtime)
-- Recommended Image: `postgres:15-alpine`
-- ORM: Prisma
-- Database: PostgreSQL
-
-### Research First
-
-- ORM ဆိုတာဘာလဲ? (Prisma က Database နဲ့ App ကြားမှာ ဘာလုပ်ပေးတာလဲ?)
-- `npx prisma generate` မလုပ်ရင် ဘာဖြစ်မလဲ? (Build stage မှာ ဒါကို ဘာလို့ ထည့်ရတာလဲ?)
-- `migrate deploy` နဲ့ `db push` ဘာကွာလဲ? (Production မှာ ဘယ်ဟာက ပိုစိတ်ချရသလဲ?)
-
-## 2. လိုအပ်သော Environment Variables (Configuration)
-
-Deployment လုပ်တဲ့နေရာမှာ (ဥပမာ- Docker သို့မဟုတ် Cloud Platform) အောက်ပါ environment variables တွေကို configuration ထဲ ထည့်ပေးပါ။
-
-```env
-DATABASE_URL=postgresql://[USER]:[PASSWORD]@[HOST]:[PORT]/[DB_NAME]
-BETTER_AUTH_SECRET=[Key]
-BETTER_AUTH_URL=[YOUR_DOMAIN_OR_IP]
-```
-
-## 3. Application Build & Run Steps (အဆင့်ဆင့်)
-
-1. Package Dependency Install: `npm install`
-2. Prisma Generate: `npx prisma generate` (ဒါက Database နဲ့ ချိတ်ဆက်ဖို့ လိုအပ်တဲ့ Type တွေကို ဆောက်ပေးတာပါ)
-3. Build: `npm run build`
-4. Create/Migrate database: `npx prisma migrate deploy` (ဒါက Database ထဲမှာ Table structure တွေကို အလိုအလျောက် သွားဆောက်ပေးမှာပါ)
-5. Project run: `npm start`
-
-## 4. Dockerization Guide (Bonus Challenge)
-
-- Prisma Client ကို builder stage ထဲမှာ generate လုပ်ပါ။
+Local မှာ Run တတ်သွားပြီဆိုမှ DevOps ပိုင်းအတွက် Docker နဲ့ စမ်းသပ်ကြည့်ပါ။
+မင်းက DevOps ကို လေ့လာနေတာဆိုတော့ ဒီ Project ကို Local မှာ Run လို့ရသွားပြီဆိုရင် -
+ဒီ Website Project အတွက် Dockerfile တစ်ခု ကိုယ်တိုင် ဆောက်ကြည့်ပါ။
+Database ပါ တစ်ခါတည်း ပါလာအောင် docker-compose.yml ကို ရေးကြည့်ပါ။
