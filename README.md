@@ -20,7 +20,7 @@ cd <project-name>
 ### 2. Setup Environment Variables
 
 .env.example ဖိုင်ကို ကူးယူပြီး .env ဆိုပြီး နာမည်ပြောင်းပါ။
-ပြီးလျှင် လိုအပ်သော Database URL များကို ဖြည့်စွက်ပါ။
+ပြီးလျှင် လိုအပ်သော value များကို ဖြည့်စွက်ပါ။
 
 ```bash
 cp .env.example .env
